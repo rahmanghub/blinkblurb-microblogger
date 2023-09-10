@@ -13,6 +13,14 @@
                                         <h2 class="fw-bold mb-2 text-uppercase">REGISTER</h2>
                                         <p class="text-white-50 mb-5">Please enter your details!</p>
                                         
+                                        {% with messages = get_flashed_messages() %}  
+                                            {% if messages %}  
+                                                {% for message in messages %}  
+                                                    <p class="alert-danger">{{ message }}</p>  
+                                                {% endfor %}  
+                                            {% endif %}  
+                                        {% endwith %}
+
                                         <div class="form-outline form-white mb-4">
                                             {{form.email.label(class="form-label")}}
                                             {{form.email(class="form-control form-control-lg")}}

@@ -14,12 +14,12 @@ def register():
         user = User(email=form.email.data,
                     username=form.username.data,
                     password=form.password.data)
-        db.session.add(user)
-        db.session.commit()
-        flash('Thanks For Registration')
-        return redirect(url_for('users.login'))
-    else:
-        flash('Improper Entries')
+        try:
+            db.session.add(user)
+            db.session.commit()
+            return redirect(url_for('users.login'))
+        except:
+            flash('Improper Entries')
 
     return render_template('register.html', form = form)
 
@@ -31,7 +31,6 @@ def login():
         if user:
             if user.check_password(form.password.data) and user is not None:
                 login_user(user)
-                flash('Successfully Logged in')
                 
                 next = request.args.get('next')
                 if next == None or not next[0] == '/':
@@ -67,7 +66,6 @@ def account():
         current_user.username = form.username.data
         current_user.email = form.email.data
         db.session.commit()
-        flash('Updated')
         return redirect(url_for('users.account'))
     elif request.method == 'GET':
         form.username.data = current_user.username
