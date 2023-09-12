@@ -19,7 +19,7 @@ def register():
             db.session.commit()
             return redirect(url_for('users.login'))
         except:
-            flash('Improper Entries')
+            flash('Already Registered Try Logging In')
 
     return render_template('register.html', form = form)
 
